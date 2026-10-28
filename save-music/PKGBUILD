@@ -1,0 +1,25 @@
+pkgname=save-music
+pkgver=20260820
+pkgver() {
+  date +%Y%m%d
+}
+pkgrel=1
+
+arch=(any)
+
+depends=(curl ffmpeg ffmpeg-normalize kid3-common bash)
+makedepends=(argbash make git)
+
+prepare() {
+  cd "$startdir"/../.. || exit 1
+  make -p "$srcdir"
+  git archive HEAD | tar xC "$srcdir"
+}
+
+build() {
+  make
+}
+
+package() {
+  make install DESTDIR="$pkgdir" PREFIX=/usr
+}

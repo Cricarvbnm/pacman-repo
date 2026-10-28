@@ -1,0 +1,18 @@
+pkgname=tag-git
+pkgver=20260820
+pkgver() {
+  date +%Y%m%d
+}
+pkgrel=1
+arch=(x86_64)
+url=https://codeberg.org/Alechron/tag
+license=(MIT)
+depends=(fish coreutils findutils tree)
+
+package() {
+  cd "${pkgname%-git}"
+  make DESTDIR="$pkgdir" PREFIX=/usr install
+}
+
+source=("${url%-git}/archive/main.tar.gz")
+sha256sums=('c0d6159172f232830b1ff3450fd0f8c90362a6cbe7b22ee81766a063b93dfcbb')
